@@ -1,0 +1,20 @@
+{
+    "Python boiler plate": {
+        "prefix": "pymain",
+        "body": [
+            "import sys",
+            "sys.stdout = open('Recursion/output.txt', 'w')",
+            "sys.stdin = open('Recursion/input.txt', 'r')",
+            "",
+            "def solution() -> None:",
+            "    ...",
+            "",
+            "",
+            "",
+            "",
+            "if __name__ == \"__main__\":",
+            "    solution()"
+        ],
+        "description": "Python starter boiler plate with file input/output"
+    }
+}

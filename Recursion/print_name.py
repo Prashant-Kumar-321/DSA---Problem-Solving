@@ -1,6 +1,6 @@
 import sys 
-sys.stdout = open('Recursion/output.txt', 'w')
-sys.stdin = open('Recursion/input.txt', 'r') 
+sys.stdout = open('./Recursion/output.txt', 'w')
+sys.stdin = open('./Recursion/input.txt', 'r')
 
 def print_name(n: int, name: str)->None: 
     # Base Condition

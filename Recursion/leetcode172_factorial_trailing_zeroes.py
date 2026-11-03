@@ -6,31 +6,12 @@ sys.stdout = open(current_folder / 'output.txt', 'w')
 sys.stdin = open(current_folder / 'input.txt', 'r')
 
 class Solution:
-    def freq_factor_x(self, x, num) -> tuple[int, int]: 
-        counter = 0
-        while num % x == 0: 
-            counter += 1
-            num //= x
-        
-        return counter, num
-
-
     def trailingZeroes(self, n: int) -> int:
-        counter_5 = 0
-        counter_2 = 0
-        
-        for i in range(n, 0, -1): 
-            freq_5, rem = self.freq_factor_x(5, i)
-            freq_2, _ = self.freq_factor_x(2, rem)
+        if n == 0: 
+            return 0
+        return n // 5 + self.trailingZeroes(n // 5)
 
-            counter_5 += freq_5
-            counter_2 += freq_2 
-
-        return min(counter_5, counter_2)
-
-
-
-    # TC = O(n)
+    # TC = (logN)
 
 
 def solution() -> None:

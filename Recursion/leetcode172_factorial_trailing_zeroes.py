@@ -6,28 +6,29 @@ sys.stdout = open(current_folder / 'output.txt', 'w')
 sys.stdin = open(current_folder / 'input.txt', 'r')
 
 class Solution:
-    # Compute n factorial
-    def fact(self, n) -> int: 
-        if n == 0: 
-            return 1
+    def freq_factor_x(self, x, num) -> tuple[int, int]: 
+        counter = 0
+        while num % x == 0: 
+            counter += 1
+            num //= x
+        
+        return counter, num
 
-        return self.fact(n-1) * n
-    
 
     def trailingZeroes(self, n: int) -> int:
-        n_fact = self.fact(n) # O(n)
-        print(n_fact)
-
-        counter = 0 
-        while n_fact > 0: 
-            last_digit = n_fact % 10
-            n_fact //= 10 
-            if (last_digit != 0): 
-                break
-            
-            counter += 1
+        counter_5 = 0
+        counter_2 = 0
         
-        return counter
+        for i in range(n, 0, -1): 
+            freq_5, rem = self.freq_factor_x(5, i)
+            freq_2, _ = self.freq_factor_x(2, rem)
+
+            counter_5 += freq_5
+            counter_2 += freq_2 
+
+        return min(counter_5, counter_2)
+
+
 
     # TC = O(n)
 

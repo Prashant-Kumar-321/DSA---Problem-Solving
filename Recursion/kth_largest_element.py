@@ -8,40 +8,46 @@ sys.stdin = open(current_folder / 'input.txt', 'r')
 import random
 
 class Solution:
-    def partition(self, nums: list[int], l: int, r: int): 
+    def partition(self, nums: list[int], l: int, r: int) -> tuple[int, int]: 
 
         # Pick a random index between l and r
         ran = random.randint(l, r) 
+        pivot = nums[ran]
         nums[ran], nums[r] = nums[r], nums[ran]
 
-
+        g = l
+        s = r
         i = l
-        for j in range(l, r): 
-            if nums[j] >= nums[r]: 
-                nums[j], nums[i] = nums[i], nums[j]
+
+        while i <= s: 
+            if nums[i] > pivot: 
+                nums[i], nums[g] = nums[g], nums[i]
                 i += 1
-
-        # Place pivot element at its correct position
-        nums[i], nums[r] = nums[r], nums[i]
-        return i            
-
-
+                g += 1
+            elif nums[i] < pivot: 
+                nums[i], nums[s] = nums[s], nums[i]
+                s -= 1
+            else: 
+                i += 1
+            
+        return [g, s]
+        
 
     def quick_sort_variant(self, nums: list[int], l: int, r: int, k: int) -> int: 
         if l == r: 
             return nums[l]
         
-        pivot = self.partition(nums, l, r)
+        # g, s Partitioning array in 3 halves (greater, equal, smaller)
+        g, s = self.partition(nums, l, r)
 
-        if pivot == k - 1: 
-            return nums[pivot]
-        elif k - 1 < pivot: 
+        if k - 1 < g: 
             # Bigger elements on left side 
-            return self.quick_sort_variant(nums, l, pivot - 1, k)
-        else: 
+            return self.quick_sort_variant(nums, l, g - 1, k)
+        elif k - 1 > s: 
             # Smaller elements on right side
-            return self.quick_sort_variant(nums, pivot + 1, r, k)
-
+            return self.quick_sort_variant(nums, s + 1, r, k)   
+        else: 
+            return nums[g]
 
     def findKthLargest(self, nums: list[int], k: int) -> int:
         return self.quick_sort_variant(nums, 0, len(nums)-1, k)

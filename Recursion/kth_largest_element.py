@@ -19,6 +19,7 @@ class Solution:
         s = r
         i = l
 
+        # 3 Way Partitions
         while i <= s: 
             if nums[i] > pivot: 
                 nums[i], nums[g] = nums[g], nums[i]
@@ -37,7 +38,7 @@ class Solution:
         if l == r: 
             return nums[l]
         
-        # g, s Partitioning array in 3 halves (greater, equal, smaller)
+        # g, s Partitioning array in 3 Parts (greater, equal, smaller)
         g, s = self.partition(nums, l, r)
 
         if k - 1 < g: 
@@ -53,7 +54,7 @@ class Solution:
         return self.quick_sort_variant(nums, 0, len(nums)-1, k)
 
     
-    # TC -- O(log(N))
+    # TC -- O(nlogn), O(n)
 
 
 def solution() -> None:

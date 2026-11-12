@@ -15,7 +15,7 @@ def selection_sort(nums: list[int]) -> None:
             if nums[j] < nums[min_i]: 
                 min_i = j
 
-        # Swap the Smalleste element with nums[min_i]
+        # Swap the Smallest element with nums[min_i]
         nums[min_i], nums[i] = nums[i], nums[min_i]
 
 
@@ -24,9 +24,6 @@ def solution() -> None:
 
     selection_sort(nums)
     print("Sorted Array: ", nums)
-
-
-
 
 
 

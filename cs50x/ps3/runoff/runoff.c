@@ -2,7 +2,6 @@
  * Problem statement: https://cs50.harvard.edu/x/psets/3/runoff/
  */
 
-
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>

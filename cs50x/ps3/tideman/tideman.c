@@ -4,6 +4,7 @@
 
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
 
 // Max number of candidates
 #define MAX 9
@@ -52,6 +53,7 @@ int main(int argc, string argv[])
         printf("Maximum number of candidates is %i\n", MAX);
         return 2;
     }
+
     for (int i = 0; i < candidate_count; i++)
     {
         candidates[i] = argv[i + 1];
@@ -87,6 +89,15 @@ int main(int argc, string argv[])
             }
         }
 
+        // Print ranks value 
+        for (int k = 0; k < candidate_count; ++k)
+        {
+            printf("%s ", candidates[ranks[k]]); 
+        }
+        printf("\n");
+
+
+        return 0; 
         record_preferences(ranks);
 
         printf("\n");
@@ -102,7 +113,17 @@ int main(int argc, string argv[])
 // Update ranks given a new vote
 bool vote(int rank, string name, int ranks[])
 {
-    // TODO
+    // Validate name is oen of the candidates
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        if (strcmp(name, candidates[i]) == 0)
+        {
+            ranks[rank] = i; 
+            return true; 
+        }
+    }
+
+    // No candidate is matched for the name
     return false;
 }
 

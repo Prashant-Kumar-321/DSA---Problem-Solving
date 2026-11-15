@@ -89,21 +89,29 @@ int main(int argc, string argv[])
             }
         }
 
-        // Print ranks value 
-        for (int k = 0; k < candidate_count; ++k)
-        {
-            printf("%s ", candidates[ranks[k]]); 
-        }
-        printf("\n");
-
-
-        return 0; 
         record_preferences(ranks);
 
         printf("\n");
     }
 
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        for (int j = 0; j < candidate_count; ++j)
+        {
+            printf("%i ", preferences[i][j]); 
+        }
+        printf("\n"); 
+    }
+
     add_pairs();
+
+    for (int i = 0; i < pair_count; ++i){
+        printf("Winner: %s\n", candidates[pairs[i].winner]); 
+        printf("Loser: %s\n", candidates[pairs[i].loser]); 
+        printf("\n"); 
+    }
+
+    return 0; 
     sort_pairs();
     lock_pairs();
     print_winner();
@@ -130,14 +138,44 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-    // TODO
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        for (int j = i + 1; j < candidate_count; ++j)
+        {
+            preferences[ranks[i]][ranks[j]]++; 
+        }
+    }
     return;
 }
 
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
-    // TODO
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        for (int j = i + 1; j < candidate_count; ++j)
+        {
+            // Pair of candidate not added if tied
+            if (preferences[i][j] == preferences[j][i]) 
+            {
+                continue; 
+            }
+
+            // Added pairs of candidate only when one is prefered over other
+            if (preferences[i][j] > preferences[j][i])
+            {
+                pairs[pair_count].winner = i; 
+                pairs[pair_count].loser = j; 
+            }
+            else 
+            {
+                pairs[pair_count].winner = j; 
+                pairs[pair_count].loser = i; 
+            }
+
+            pair_count += 1; 
+        }
+    }
     return;
 }
 

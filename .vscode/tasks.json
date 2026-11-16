@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc build active file (CS50)",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-fmax-errors=1",
+                "-gdwarf-4",
+                "-ggdb3",
+                "-O0",
+                "-std=c11",
+                "-Wall",
+                "-Werror",
+                "-Wextra",
+                "-Wno-sign-compare",
+                "-Wno-unused-parameter",
+                "-Wno-unused-variable",
+                "-Wno-unused-but-set-variable",
+                "-Wshadow",
+                "${file}",
+                "-lcrypt",
+                "-lcs50",
+                "-lm",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Compiles active C file with CS50 flags."
+        }
+    ]
+}

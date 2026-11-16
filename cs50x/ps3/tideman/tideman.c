@@ -36,6 +36,7 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+int victory_strength(pair p); 
 
 int main(int argc, string argv[])
 {
@@ -111,8 +112,20 @@ int main(int argc, string argv[])
         printf("\n"); 
     }
 
-    return 0; 
     sort_pairs();
+
+    // Print the pairs of candidates in sorted order
+    printf("Pairs in Sorted Order: "); 
+    for (int i = 0; i < pair_count; ++i)
+    {
+        int winner_idx = pairs[i].winner; 
+        int loser_idx = pairs[i].loser; 
+        printf("[%s - %s :: %i - %i]\n", candidates[winner_idx], candidates[loser_idx], preferences[winner_idx][loser_idx], preferences[loser_idx][winner_idx]); 
+    }
+
+
+    return 0; 
+
     lock_pairs();
     print_winner();
     return 0;
@@ -179,10 +192,43 @@ void add_pairs(void)
     return;
 }
 
+int victory_strength(pair p)
+{
+    printf("%i, ", preferences[p.winner][p.loser] - preferences[p.loser][p.winner]); 
+    return preferences[p.winner][p.loser] - preferences[p.loser][p.winner]; 
+}
+
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
+    // Using Optimize Bubble Sort to sort the pairs of candidates
+    for (int i = 0; i < pair_count; ++i)
+    {
+        bool swapped = false; 
+        
+        for (int j = i; j < pair_count - i - 1; ++j)
+        {
+            if (victory_strength(pairs[j]) < victory_strength(pairs[j + 1]))
+            {
+                // Swap Adjacent Pairs
+                pair temp = {.winner = pairs[j + 1].winner, .loser = pairs[j + 1].loser}; 
+                pairs[j + 1].winner = pairs[j].winner; 
+                pairs[j +  1].loser = pairs[j].loser; 
+
+                pairs[j].winner =  temp.winner; 
+                pairs[j].loser = temp.loser; 
+
+                swapped = true; 
+            }
+        }
+
+        // Optimization Code
+        // if No any swapped occured break the loop as pairs are already sorted.
+        if (!swapped)
+        {
+            break; 
+        }
+    }
     return;
 }
 

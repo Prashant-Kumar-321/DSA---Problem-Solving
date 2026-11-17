@@ -1,6 +1,6 @@
 /**
  * https://cs50.harvard.edu/x/psets/3/tideman/ * 
- */
+*/
 
 #include <cs50.h>
 #include <stdio.h>
@@ -113,18 +113,6 @@ int main(int argc, string argv[])
     }
 
     sort_pairs();
-
-    // Print the pairs of candidates in sorted order
-    printf("Pairs in Sorted Order: "); 
-    for (int i = 0; i < pair_count; ++i)
-    {
-        int winner_idx = pairs[i].winner; 
-        int loser_idx = pairs[i].loser; 
-        printf("[%s - %s :: %i - %i]\n", candidates[winner_idx], candidates[loser_idx], preferences[winner_idx][loser_idx], preferences[loser_idx][winner_idx]); 
-    }
-
-
-    return 0; 
 
     lock_pairs();
     print_winner();

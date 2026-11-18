@@ -37,6 +37,7 @@ void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
 int victory_strength(pair p); 
+bool is_there_cycle(bool visited[], int src); 
 
 int main(int argc, string argv[])
 {
@@ -113,8 +114,17 @@ int main(int argc, string argv[])
     }
 
     sort_pairs();
-
     lock_pairs();
+
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        for (int j = 0; j < candidate_count; ++j)
+        {
+            printf("%i ", locked[i][j]); 
+        }
+        printf("\n");
+    }
+
     print_winner();
     return 0;
 }
@@ -220,11 +230,47 @@ void sort_pairs(void)
     return;
 }
 
+// Detect if there is cycle from current source
+bool is_there_cycle(bool visited[], int node)
+{
+    if (visited[node] == true)
+    {
+        return true; 
+    }
+
+    // locked [][] = graph
+    // visited array track node visited
+    visited[node] = true;
+
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        if (locked[node][i] == true)
+        {
+            return is_there_cycle(visited, i); 
+        }
+    }
+
+    return false; 
+}
+
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
-    return;
+    // Iterate over pairs and locks each pair if it does not lead to cycle
+    for (int i = 0; i < pair_count; ++i)
+    {
+        // Adding a edge in the graph
+        locked[pairs[i].winner][pairs[i].loser] = true; 
+
+        // Create a visited array to track the visited candidates
+        bool visited[MAX] = {false}; 
+        visited[pairs[i].winner] = true; 
+        if (is_there_cycle(visited, pairs[i].loser))
+        {
+            locked[pairs[i].winner][pairs[i].loser] = false; 
+        }
+    }
+    
 }
 
 // Print the winner of the election
@@ -233,3 +279,4 @@ void print_winner(void)
     // TODO
     return;
 }
+

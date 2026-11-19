@@ -1,7 +1,6 @@
 /**
  * https://cs50.harvard.edu/x/psets/3/tideman/ * 
 */
-
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -95,19 +94,10 @@ int main(int argc, string argv[])
 
         printf("\n");
     }
-
-    for (int i = 0; i < candidate_count; ++i)
-    {
-        for (int j = 0; j < candidate_count; ++j)
-        {
-            printf("%i ", preferences[i][j]); 
-        }
-        printf("\n"); 
-    }
-
     add_pairs();
 
-    for (int i = 0; i < pair_count; ++i){
+    for (int i = 0; i < pair_count; ++i)
+    {
         printf("Winner: %s\n", candidates[pairs[i].winner]); 
         printf("Loser: %s\n", candidates[pairs[i].loser]); 
         printf("\n"); 
@@ -116,6 +106,7 @@ int main(int argc, string argv[])
     sort_pairs();
     lock_pairs();
 
+    printf("\n"); 
     for (int i = 0; i < candidate_count; ++i)
     {
         for (int j = 0; j < candidate_count; ++j)
@@ -276,7 +267,37 @@ void lock_pairs(void)
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
-    return;
+    bool winner_found = false; 
+
+    // Find the candidate which no-one points to in the graph == Source Node
+    for (int i = 0; i < candidate_count; ++i)
+    {
+        bool is_to_edge = false; 
+
+        for (int j = 0; j < candidate_count; ++j)
+        {
+            if (locked[j][i])
+            {
+                is_to_edge = true; 
+                break; 
+            }
+        }
+
+        if (!is_to_edge)
+        {
+            printf("%s\n", candidates[i]); 
+            winner_found = true;
+            break; 
+        }
+    }
+
+    // In-case of tie print everyone's name
+    if (!winner_found)
+    {
+        for (int i = 0; i < candidate_count; ++i)
+        {
+            printf("%s\n", candidates[i]); 
+        }
+    }
 }
 

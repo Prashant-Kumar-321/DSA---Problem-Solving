@@ -48,6 +48,9 @@ int main(int argc, string argv[])
     }
 
     // Populate array of candidates
+    // TODO:-
+    // Enhacement: Read this info from file, 
+    // Advantage: No need to input every time we need to test the code
     candidate_count = argc - 1;
     if (candidate_count > MAX)
     {

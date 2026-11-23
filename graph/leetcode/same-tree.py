@@ -7,7 +7,10 @@
 #         self.left = left
 #         self.right = right
 
+# Loop BFS solution
 class Solution:
+
+    # Non Recursive BFS
     def isSameTree(self, p: TreeNode | None, q: TreeNode | None) -> bool:
         curr_level1 = [p]
         curr_level2 = [q] 
@@ -66,5 +69,18 @@ class Solution:
             
 
         return True                      
+
+# Recursive Solution
+class Solution:
+    def isSameTree(self, p: TreeNode | None, q: TreeNode | None) -> bool:
+        # Compare root of current Tree / Sub-Tree
+        if p and q and p.val != q.val: 
+            return False
+        elif (not p and q) or (p and not q): 
+            return False
+        elif not p and not q: 
+            return True 
+
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)              
 
 

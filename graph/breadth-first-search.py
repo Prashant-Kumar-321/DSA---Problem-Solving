@@ -17,8 +17,6 @@ def bfs(graph: list[list[bool]], source: int, predecesor: list[int], shortest_pa
         next_level = list()
 
         for u in curr_level: 
-            print(u, end = " ")
-
             for i in range(len(graph[u])): 
                 if graph[u][i] and not visited[i]: 
                     next_level.append(i)
@@ -31,6 +29,15 @@ def bfs(graph: list[list[bool]], source: int, predecesor: list[int], shortest_pa
         next_level = list()
 
 
+def print_shortest_path(predecesor: list[int], dest: int) -> None: 
+    if predecesor[dest] == -1: 
+        print(dest, end="") 
+        return
+
+    print_shortest_path(predecesor, predecesor[dest]) 
+
+    print(f" --> {dest}", end = "")
+
 # Breadth First Search
 def breadth_first_search(graph: list[list[bool]], source: int) -> tuple[list[int], list[int]]:
     """
@@ -42,9 +49,9 @@ def breadth_first_search(graph: list[list[bool]], source: int) -> tuple[list[int
     shortest_path[source] = 0
 
     # Internal Breadth First Search Method
-    bfs(graph, source, predecesor, shortest_path, 1)
+    bfs(graph, source, predecesor, shortest_path, level=0)
 
-    return (predecesor, shortest_path)
+    return predecesor, shortest_path
 
 
 def solution() -> None:
@@ -58,17 +65,11 @@ def solution() -> None:
     for _ in range(edges): 
         v, w = list(map(int, input().split()))
         graph[v][w] = True
-        graph[w][v] = True
 
-    predecesor, shortest_paths = breadth_first_search(graph, 0)
+    source = 0
+    predecesor, shortest_paths = breadth_first_search(graph, source=source)
 
-    print()
-    print(predecesor)
-    print(shortest_paths)
-        
-
-
-
+    print_shortest_path(predecesor, 2)  
 
 
 if __name__ == "__main__":

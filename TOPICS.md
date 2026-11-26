@@ -2,13 +2,11 @@
 This Document Tracks every day learning of Topics and maintenances the logs of every day learning milestones.
 
 ## Daily Log
-
 | Date | Topic | What I covered | Practice / reference | Confidence (1–5) |
 |---|---|---|---|---|
 | 24-11-2026 | Breadth First Search | How to Traverse Graph via BFS and Shortest Path Tree | NA | 3 |
 
 ### Daily entry template
-
 ```text
 Date:
 Topic:
